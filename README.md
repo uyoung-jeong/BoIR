@@ -1,4 +1,4 @@
-# BoIR: Box-Supervised Instance Representation for Multi Person Pose Estimation
+# BoIR: Box-Supervised Instance Representation for Multi-Person Pose Estimation
 
 [[`Paper`]()]
 <p float="left">
