@@ -1,0 +1,125 @@
+CFG_NAME: 'boir-w32'
+AUTO_RESUME: True
+OUTPUT_DIR: runs
+PRINT_FREQ: 100
+WORKERS: 4
+VERBOSE: False
+DDP: True
+CUDNN:
+  BENCHMARK: True
+  DETERMINISTIC: False
+  ENABLED: True
+DATASET:
+  DATASET: ochuman
+  FLIP: 0.5
+  INPUT_SIZE: 512
+  OUTPUT_SIZE: 128
+  MAX_INSTANCES: 200
+  MAX_ROTATION: 30
+  MAX_SCALE: 1.5
+  SCALE_TYPE: 'short'
+  MAX_TRANSLATE: 40
+  MIN_SCALE: 0.75
+  NUM_KEYPOINTS: 17
+  FLIP_INDEX: [0, 2, 1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14, 13, 16, 15]
+  ROOT: 'data/ochuman'
+  TEST: test
+  TRAIN: val
+LOSS:
+  MULTI_HEATMAP_LOSS_WEIGHT: 1.0
+  SINGLE_HEATMAP_LOSS_WEIGHT: 4.0
+  BBOX_MASK_LOSS_WEIGHT: 0.25
+  BBOX_LOSS_WEIGHT: 0.25
+  AE_BETA: 10.0
+  BBOX_MASK_LOSS_BG_SAMPLE_LEVEL: 1
+TEST:
+  FLIP_TEST: True
+  IMAGES_PER_GPU: 1
+  MODEL_FILE: ''
+  MAX_PROPOSALS: 30
+  KEYPOINT_THRESHOLD: 0.01
+  CENTER_POOL_KERNEL: 11
+  OKS_SCORE: 0.7
+  OKS_SIGMAS: [.26, .25, .25, .35, .35, .79, .79, .72, .72, .62,.62, 1.07, 1.07, .87, .87, .89, .89]
+TRAIN:
+  BEGIN_EPOCH: 0
+  CHECKPOINT: ''
+  END_EPOCH: 140
+  GAMMA1: 0.99
+  GAMMA2: 0.0
+  IMAGES_PER_GPU: 20
+  LR: 0.001
+  LR_FACTOR: 0.1
+  LR_STEP: [90, 120]
+  MOMENTUM: 0.9
+  NESTEROV: False
+  OPTIMIZER: adamw
+  LR_SCHEDULER: cosine
+  WARMUP_EPOCHS: 10
+  WARMUP_START_VALUE: 1e-12
+  MIN_LR: 1e-6
+  RESUME: False
+  SHUFFLE: True
+  WD: 0.025
+  AMP: True
+MODEL:
+  NAME: 'BoIR'
+  INIT_WEIGHTS: True
+  PRETRAINED: 'model/imagenet/hrnet_w32-36af842e.pth'
+  SYNC_BN: False
+  NECK:
+    IN_CHANNELS: 480
+    MODULES:
+      NAME: ['aspp']
+      CHANNELS: [256]
+      MIDDLE_CHANNELS: [128]
+      KERNEL_SIZE: [3]
+      ATROUS_RATES: [12,24,36]
+  CenterHead:
+    IN_CHANNELS: 256
+    CHANNELS: 128
+    OUT_CHANNELS: 1
+  BUKHead:
+    IN_CHANNELS: 256
+    CHANNELS: 128
+    OUT_CHANNELS: 17
+  EmbHead:
+    IN_CHANNELS: 256
+    CHANNELS: 128
+    OUT_CHANNELS: 128
+  BboxHead:
+    IN_CHANNELS: 256
+    CHANNELS: 128
+    OUT_CHANNELS: 4
+  InstKptHead:
+    IN_CHANNELS: 480
+    CHANNELS: 64
+    OUT_CHANNELS: 17
+  BACKBONE:
+    PRETRAINED_LAYERS: [ '*' ]
+    STAGES:
+      NUM_STAGES: 3
+      NUM_MODULES:
+        - 1
+        - 4
+        - 3
+      NUM_BRANCHES:
+        - 2
+        - 3
+        - 4
+      BLOCK:
+        - BASIC
+        - BASIC
+        - BASIC
+      NUM_BLOCKS:
+        - [ 4, 4 ]
+        - [ 4, 4, 4 ]
+        - [ 4, 4, 4, 4 ]
+      NUM_CHANNELS:
+        - [ 32, 64 ]
+        - [ 32, 64, 128 ]
+        - [ 32, 64, 128, 256 ]
+      FUSE_METHOD:
+        - SUM
+        - SUM
+        - SUM
