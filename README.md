@@ -1,6 +1,9 @@
 # BoIR: Box-Supervised Instance Representation for Multi-Person Pose Estimation
 
-[[`Paper`]()]
+[[`Paper`](https://arxiv.org/pdf/2309.14072.pdf)]
+
+BMVC 2023
+
 <p float="left">
     <img src="img/fig2.png" height="300" />
     <img src="img/fig1.png" height="240" />
