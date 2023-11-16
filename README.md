@@ -116,7 +116,22 @@ python tools/valid.py --cfg experiments/ochuman_w32.yaml --gpus 0,1 TEST.MODEL_F
 
 ### 3. Train Model
 
-You need to download HRNet-W32 imagenet pretrained model (see above) and change the checkpoint path by modifying `MODEL.PRETRAINED` in .yaml, and run following commands:
+You need to download imagenet pretrained HRNet models (see above) and change the checkpoint path by modifying `MODEL.PRETRAINED` in .yaml, and run following commands:
+```python
+# train on coco with 4 gpus
+python tools/train.py --cfg experiments/boir/coco_w32.yaml --gpus 0,1,2,3
+
+# train on crowdpose with 4 gpus
+python tools/train.py --cfg experiments/boir/crowdpose_w32.yaml --gpus 0,1,2,3
+
+# finetune on crowdpose with 4 gpus
+python tools/train.py --cfg experiments/boir/crowdpose_w32.yaml --gpus 0,1,2,3 TEST.MODEL_FILE model/coco/checkpoint_w32.pth.tar TRAIN.TRANSFER_DATASET True
+```
+
+To continue training:
+```python
+python tools/train.py --cfg experiments/boir/coco_w32.yaml --gpus 0,1 --output_dir {path}
+```
 
 Training script will be added later.
 
