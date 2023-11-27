@@ -1,6 +1,6 @@
 # BoIR: Box-Supervised Instance Representation for Multi-Person Pose Estimation
 
-[[`Paper`](https://arxiv.org/pdf/2309.14072.pdf)]
+[[`Paper`](https://arxiv.org/pdf/2309.14072.pdf)] [[`Proceeding`](https://proceedings.bmvc2023.org/763/)]
 
 BMVC 2023
 
@@ -133,8 +133,6 @@ To continue training:
 python tools/train.py --cfg experiments/boir/coco_w32.yaml --gpus 0,1 --output_dir {path}
 ```
 
-Training script will be added later.
-
 ## Main Results
 ### Results on COCO val and test-dev set
 | Method| Test set | Backbone | Input size |     AP | AP.5 | AP .75 | AP (M) | AP (L) |
@@ -168,7 +166,14 @@ Training script will be added later.
 | BoIR| COCO train | OCHuman test | HRNet-W48  | 640   | 48.5  | 61.3  |  54.1  |  80.7  |
 
 ## Citation
-
+@inproceedings{Jeong_2023_BMVC,
+author    = {Uyoung Jeong and Seungryul Baek and Hyung Jin Chang and Kwang In Kim},
+title     = {BoIR: Box-Supervised Instance Representation for Multi-Person Pose Estimation},
+booktitle = {34th British Machine Vision Conference 2023, {BMVC} 2023, Aberdeen, UK, November 20-24, 2023},
+publisher = {BMVA},
+year      = {2023},
+url       = {https://papers.bmvc2023.org/0763.pdf}
+}
 
 ## Acknowledgement
 Our code is derived from:
