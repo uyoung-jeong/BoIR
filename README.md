@@ -166,6 +166,7 @@ python tools/train.py --cfg experiments/boir/coco_w32.yaml --gpus 0,1 --output_d
 | BoIR| COCO train | OCHuman test | HRNet-W48  | 640   | 48.5  | 61.3  |  54.1  |  80.7  |
 
 ## Citation
+```
 @inproceedings{Jeong_2023_BMVC,
 author    = {Uyoung Jeong and Seungryul Baek and Hyung Jin Chang and Kwang In Kim},
 title     = {BoIR: Box-Supervised Instance Representation for Multi-Person Pose Estimation},
@@ -174,6 +175,7 @@ publisher = {BMVA},
 year      = {2023},
 url       = {https://papers.bmvc2023.org/0763.pdf}
 }
+```
 
 ## Acknowledgement
 Our code is derived from:
